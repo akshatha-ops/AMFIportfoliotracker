@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AMFI Portfolio Value Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>AMFI Portfolio Value Tracker</h1>
+      <p class="subtitle">Search a scheme, enter units, and get your latest portfolio value.</p>
+
+      <section class="card">
+        <h2>Load AMFI data</h2>
+        <div class="actions">
+          <button id="liveBtn" type="button">Try Live AMFI Data</button>
+          <label class="file-label">
+            Upload NAVAll.txt
+            <input id="fileInput" type="file" accept=".txt,text/plain" />
+          </label>
+        </div>
+
+        <label for="rawInput">Or paste NAVAll.txt content:</label>
+        <textarea id="rawInput" rows="8" placeholder="Paste NAVAll.txt content here"></textarea>
+        <button id="parseBtn" type="button">Parse Pasted Data</button>
+
+        <p id="status" class="status">No data loaded yet.</p>
+      </section>
+
+      <section class="card">
+        <h2>Find your scheme</h2>
+
+        <label for="schemeSearch">Scheme name</label>
+        <input id="schemeSearch" type="text" placeholder="Type scheme name" autocomplete="off" />
+        <div id="matches" class="matches" role="listbox" aria-label="Matching schemes"></div>
+
+        <div id="selectedWrap" class="selected hidden">
+          <p><strong>Selected:</strong> <span id="selectedName"></span></p>
+          <p><strong>Latest NAV:</strong> ₹<span id="selectedNav"></span> <span id="selectedDateWrap">(Date: <span id="selectedDate"></span>)</span></p>
+        </div>
+
+        <label for="unitsInput">Units held</label>
+        <input id="unitsInput" type="number" min="0" step="any" placeholder="e.g. 125.75" />
+
+        <button id="calcBtn" type="button">Calculate Portfolio Value</button>
+        <p id="result" class="result"></p>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

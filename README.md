@@ -1,47 +1,45 @@
 # AMFI Portfolio Value Tracker
 
-This is a static frontend that can be uploaded directly to GitHub or deployed with GitHub Pages.
+A lightweight web app that parses AMFI `NAVAll.txt`, helps you search a scheme, and calculates the portfolio value based on units held.
 
-## What it does
+## Features
 
-- Loads AMFI NAV data from `NAVAll.txt`
-- Lets the user search for a mutual fund scheme
-- Accepts units held
-- Calculates the latest portfolio value using the most recent NAV in the file
+- Parses AMFI NAV format (`Scheme Code;...;Scheme Name;Net Asset Value;Date`)
+- Search by mutual fund scheme name
+- Pick a scheme and view latest NAV + date
+- Calculate portfolio value using units held
+- Three data input paths:
+  - Try live AMFI fetch
+  - Upload `NAVAll.txt`
+  - Paste raw NAV text
 
-## Files
+## Project files
 
-- `index.html`
-- `styles.css`
-- `app.js`
+- `index.html` – app UI
+- `styles.css` – styling
+- `app.js` – parser + search + calculator logic
+- `server.js` – minimal Node static server (Railway-friendly)
+- `package.json` – app scripts/runtime
+- `railway.toml` – Railway deployment config
 
-## How to use
+## Run locally
 
-1. Upload these files to a GitHub repository.
-2. Open `index.html` locally or enable GitHub Pages for the repository.
-3. On the page, either:
-   - click `Try Live AMFI Data`, or
-   - upload the AMFI `NAVAll.txt` file, or
-   - paste the text content manually
-4. Search for the fund name.
-5. Enter units to see the portfolio value.
+```bash
+npm start
+```
+
+Then open `http://localhost:3000`.
+
+## Deploy to Railway
+
+1. Push this project to a GitHub repository.
+2. In Railway, choose **New Project** → **Deploy from GitHub repo**.
+3. Select this repository and branch.
+4. Railway auto-detects `railway.toml` and uses `npm start`.
+5. After deploy, open the generated Railway URL.
 
 ## Important note about live AMFI loading
 
-Because this is a frontend-only app, direct loading from `https://portal.amfiindia.com/spages/NAVAll.txt` may be blocked by browser cross-origin rules on some browsers or hosting setups.
+Direct browser fetch from `https://portal.amfiindia.com/spages/NAVAll.txt` may be blocked by CORS depending on environment.
 
-That is why the app supports three paths:
-
-- direct live fetch
-- file upload
-- pasted text
-
-The upload and paste options are the most reliable for GitHub Pages.
-
-## AMFI format expected
-
-The parser expects rows in this structure:
-
-`Scheme Code;ISIN Div Payout / ISIN Growth;ISIN Div Reinvestment;Scheme Name;Net Asset Value;Date`
-
-It automatically skips category headings and blank lines.
+If that happens, use **Upload** or **Paste** input options (most reliable).
